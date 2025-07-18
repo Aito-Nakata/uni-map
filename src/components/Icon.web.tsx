@@ -67,6 +67,8 @@ const Icon: React.FC<IconProps> = ({ name, size = 24, color = '#000', style }) =
     'access-time': '🕐',
     'error-outline': '⚠️',
     'fullscreen': '⛶',
+    'filter-variant': '🔽',
+    'crosshairs-gps': '🎯',
   };
 
   const iconCharacter = iconMap[name] || '●';

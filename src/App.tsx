@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { PaperProvider } from 'react-native-paper';
+import PaperIconProvider from './components/PaperIconProvider.web';
 import { StatusBar } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 
@@ -149,7 +150,11 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <PaperProvider>
+        <PaperProvider 
+          settings={{
+            icon: PaperIconProvider,
+          }}
+        >
           <AppContent />
         </PaperProvider>
       </PersistGate>
