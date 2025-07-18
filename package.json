@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "チュウニズム設置場所マップアプリ",
   "main": "index.js",
+  "engines": {
+    "node": "18"
+  },
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
