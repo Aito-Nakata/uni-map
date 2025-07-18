@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Marker, Callout } from 'react-native-maps';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from '@/components/Icon.web';
 import { Store } from '@/types';
 
 interface StoreMarkerProps {

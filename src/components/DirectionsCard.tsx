@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Linking, Alert } from 'react-native';
 import { Text, Button, Card, Chip, IconButton } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from '@/components/Icon.web';
 import { Store } from '@/types';
 import { locationService } from '@/services/locationService';
 

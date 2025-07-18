@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Card, RadioButton, Chip } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from '@/components/Icon.web';
 import { Store } from '@/types';
 
 interface SuggestionFieldSelectorProps {

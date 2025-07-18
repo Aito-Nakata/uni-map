@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { View, ScrollView, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { Text, IconButton, Portal, Modal } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from '@/components/Icon.web';
 
 interface StorePhotosCarouselProps {
   photos: string[];

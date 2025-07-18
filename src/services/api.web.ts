@@ -180,3 +180,4 @@ class WebStoreApi {
 }
 
 export const webStoreApi = new WebStoreApi();
+export const storeApi = webStoreApi;

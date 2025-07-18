@@ -15,7 +15,7 @@ import {
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from '@/components/Icon.web';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { fetchStoreById } from '@/store/slices/storesSlice';

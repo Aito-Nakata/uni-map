@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Snackbar, Card } from 'react-native-paper';
 import NetInfo from '@react-native-community/netinfo';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from '@/components/Icon.web';
 
 interface OfflineIndicatorProps {
   onNetworkChange?: (isConnected: boolean) => void;

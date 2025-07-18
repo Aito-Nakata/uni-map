@@ -20,7 +20,7 @@ import SettingsScreen from '@/screens/SettingsScreen';
 import StoreDetailScreen from '@/screens/StoreDetailScreen';
 import SuggestionFormScreen from '@/screens/SuggestionFormScreen';
 import OfflineStatusScreen from '@/screens/OfflineStatusScreen';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from './components/Icon.web';
 
 import type { RootStackParamList, TabParamList } from '@/types';
 

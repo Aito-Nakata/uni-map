@@ -11,7 +11,7 @@ import {
   Divider 
 } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from '@/components/Icon.web';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { syncPendingData } from '@/store/slices/storesSlice';
 import { offlineService } from '@/services/offlineService';

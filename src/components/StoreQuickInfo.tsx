@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import { Text, Card, Button, Chip, IconButton, Divider } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from '@/components/Icon.web';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { addFavorite, removeFavorite } from '@/store/slices/userSlice';
 import { Store } from '@/types';
