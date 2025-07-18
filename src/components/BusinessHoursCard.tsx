@@ -101,7 +101,7 @@ const BusinessHoursCard: React.FC<BusinessHoursCardProps> = ({ businessHours }) 
     return { text: '営業時間外', color: '#FF9800', icon: 'schedule' };
   };
 
-  const renderDayHours = (day: keyof BusinessHours, isToday: boolean = false) => {
+  const renderDayHours = (day: keyof BusinessHours, isToday = false) => {
     const hours = businessHours[day];
     const isClosed = isClosedDay(hours.open, hours.close);
     

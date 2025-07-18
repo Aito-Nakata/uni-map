@@ -185,7 +185,7 @@ export const validateUser = (user: any): user is User => {
   return true;
 };
 
-export const sanitizeString = (input: string, maxLength: number = 255): string => {
+export const sanitizeString = (input: string, maxLength = 255): string => {
   return input.trim().substring(0, maxLength);
 };
 

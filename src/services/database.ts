@@ -160,7 +160,7 @@ class LocalDatabase {
     }
   }
 
-  async isCacheValid(maxAgeMinutes: number = 30): Promise<boolean> {
+  async isCacheValid(maxAgeMinutes = 30): Promise<boolean> {
     try {
       const metadata = await this.getCacheMetadata();
       if (!metadata || !metadata.storesLastUpdated) return false;
