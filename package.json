@@ -17,7 +17,8 @@
     "build:android": "cd android && ./gradlew assembleRelease",
     "build:ios": "cd ios && xcodebuild -workspace ChunithmLocationMap.xcworkspace -scheme ChunithmLocationMap -configuration Release -archivePath build/ChunithmLocationMap.xcarchive archive",
     "web": "vite",
-    "build:web": "vite build"
+    "build:web": "vite build",
+    "vercel-build": "vite build"
   },
   "dependencies": {
     "react": "18.2.0",
