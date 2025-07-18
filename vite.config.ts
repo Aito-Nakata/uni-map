@@ -14,7 +14,9 @@ export default defineConfig({
     alias: {
       'react-native': 'react-native-web',
       'react-native-maps': path.resolve(__dirname, 'src/components/react-native-maps.web.tsx'),
+      '@react-native-community/netinfo': path.resolve(__dirname, 'src/services/NetInfo.web.ts'),
       '@/services/locationService': path.resolve(__dirname, 'src/services/locationService.web.ts'),
+      '@/services/offlineService': path.resolve(__dirname, 'src/services/offlineService.web.ts'),
       '@': path.resolve(__dirname, 'src'),
     },
     extensions: ['.web.tsx', '.web.ts', '.web.jsx', '.web.js', '.tsx', '.ts', '.jsx', '.js'],

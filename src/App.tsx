@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { PaperProvider } from 'react-native-paper';
 import PaperIconProvider from './components/PaperIconProvider.web';
-import { StatusBar } from 'react-native';
+import { StatusBar, View, Text, StyleSheet } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 
 import { store, persistor } from '@/store';
@@ -105,25 +105,43 @@ function MainNavigator() {
 
 function AppContent() {
   const dispatch = useAppDispatch();
+  const [isAppReady, setIsAppReady] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Initialize offline service
-    offlineService.initialize();
-    
-    // Monitor network status
-    const unsubscribe = NetInfo.addEventListener(state => {
-      const isOffline = !state.isConnected || !state.isInternetReachable;
-      dispatch(setOfflineMode(isOffline));
-      
-      // Auto-sync when coming back online
-      if (!isOffline) {
-        dispatch(syncPendingData());
-      }
-    });
+    const initializeApp = async () => {
+      try {
+        console.log('Initializing app...');
+        
+        // Initialize offline service
+        await offlineService.initialize();
+        console.log('Offline service initialized');
+        
+        // Monitor network status
+        const unsubscribe = NetInfo.addEventListener(state => {
+          const isOffline = !state.isConnected || !state.isInternetReachable;
+          dispatch(setOfflineMode(isOffline));
+          
+          // Auto-sync when coming back online
+          if (!isOffline) {
+            dispatch(syncPendingData());
+          }
+        });
 
-    return () => {
-      unsubscribe();
+        console.log('App initialization complete');
+        setIsAppReady(true);
+        
+        return () => {
+          unsubscribe();
+        };
+      } catch (err) {
+        console.error('App initialization error:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        setIsAppReady(true); // Still show the app even if there's an error
+      }
     };
+
+    initializeApp();
   }, [dispatch]);
 
   const handleNetworkChange = (isConnected: boolean) => {
@@ -135,14 +153,32 @@ function AppContent() {
     }
   };
 
+  if (!isAppReady) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.loadingText}>アプリを初期化中...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorTitle}>エラーが発生しました</Text>
+        <Text style={styles.errorText}>{error}</Text>
+        <Text style={styles.errorHint}>アプリを継続します...</Text>
+      </View>
+    );
+  }
+
   return (
-    <>
+    <View style={styles.appContainer}>
       <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
       <NavigationContainer>
         <OfflineIndicator onNetworkChange={handleNetworkChange} />
         <MainNavigator />
       </NavigationContainer>
-    </>
+    </View>
   );
 }
 
@@ -161,3 +197,44 @@ export default function App() {
     </Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  appContainer: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  loadingText: {
+    fontSize: 16,
+    color: '#666',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    padding: 20,
+  },
+  errorTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#d32f2f',
+    marginBottom: 10,
+  },
+  errorText: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  errorHint: {
+    fontSize: 12,
+    color: '#999',
+    textAlign: 'center',
+  },
+});

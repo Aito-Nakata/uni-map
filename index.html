@@ -169,19 +169,49 @@
         window.addEventListener('resize', setVH);
         
         // Hide loading screen after app loads
+        let appLoadTimeout;
+        let loadingHidden = false;
+        
+        function hideLoadingScreen() {
+            if (loadingHidden) return;
+            loadingHidden = true;
+            
+            console.log('Hiding loading screen...');
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.style.opacity = '0';
+                loading.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                    document.body.classList.add('app-loaded');
+                    console.log('Loading screen hidden, app should be visible now');
+                }, 500);
+            }
+        }
+        
+        // Try to hide loading screen when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('DOM Content Loaded');
+                appLoadTimeout = setTimeout(hideLoadingScreen, 2000);
+            });
+        } else {
+            console.log('DOM already loaded');
+            appLoadTimeout = setTimeout(hideLoadingScreen, 2000);
+        }
+        
+        // Also listen for window load event
         window.addEventListener('load', function() {
-            setTimeout(function() {
-                const loading = document.getElementById('loading');
-                if (loading) {
-                    loading.style.opacity = '0';
-                    loading.style.transition = 'opacity 0.5s ease';
-                    setTimeout(() => {
-                        loading.style.display = 'none';
-                        document.body.classList.add('app-loaded');
-                    }, 500);
-                }
-            }, 1000);
+            console.log('Window loaded');
+            clearTimeout(appLoadTimeout);
+            setTimeout(hideLoadingScreen, 1000);
         });
+        
+        // Force hide loading screen after 5 seconds no matter what
+        setTimeout(function() {
+            console.log('Force hiding loading screen after 5 seconds');
+            hideLoadingScreen();
+        }, 5000);
         
         // Service Worker Registration for PWA
         if ('serviceWorker' in navigator) {
